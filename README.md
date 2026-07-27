@@ -2,8 +2,15 @@
 
 ```bash
 brew tap cli-pulse/tap
+brew trust cli-pulse/tap
 brew install --cask cli-pulse
 ```
+
+The `brew trust` step is not optional and not us being unusual — Homebrew 6
+refuses to load casks from any third-party tap until you say you trust it.
+Without it the install stops with *"Refusing to load cask … from untrusted
+tap"*. It is a one-time confirmation that you have looked at where this
+software comes from, which is a reasonable thing for Homebrew to ask.
 
 CLI Pulse is a macOS menu bar app that tracks usage, quota, and cost across your
 AI coding tools.
