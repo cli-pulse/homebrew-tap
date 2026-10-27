@@ -1,8 +1,8 @@
 cask "cli-pulse" do
   arch arm: "arm64"
 
-  version "1.58.0"
-  sha256 "7502c4aafba07f68f2e85580f360efbb1b8fc84495e7d146f53369ccef3cd873"
+  version "1.59.0"
+  sha256 "490fd5380a5a6eee27a24416c80861a47098463ce90fc8e4e88353fe50517a8a"
 
   # PINNED: the app update repo is `cli-pulse-distrib`, NOT `cli-pulse`, and the
   # owner segment stays `JasonYeYuhe` even after the org move — the shipped
@@ -58,12 +58,20 @@ cask "cli-pulse" do
   # the app's (HelperCachePurge.swift names the same places). Up to 1.56 its
   # cache and both apps' cookie files could hold credentialed requests, which is
   # why they are listed here and not left behind.
+  #
+  # A Mac that ran the App Store build first also has that build's sandbox
+  # containers: the app's, and its helper's (yyh.CLI-Pulse.helper), which holds
+  # that helper's own data, its web cache included (PRIVACY.md names the
+  # folder). This build never opens either container itself: opening another
+  # app's folder under ~/Library/Containers makes macOS ask the user
+  # (HelperCachePurge.swift). So --zap is where they get removed.
   zap trash: [
     "~/Library/Application Scripts/yyh.CLI-Pulse",
     "~/Library/Application Support/CLIPulse",
     "~/Library/Caches/yyh.CLI-Pulse",
     "~/Library/Caches/yyh.CLI-Pulse.helper",
     "~/Library/Containers/yyh.CLI-Pulse",
+    "~/Library/Containers/yyh.CLI-Pulse.helper",
     "~/Library/Group Containers/group.yyh.CLI-Pulse",
     "~/Library/HTTPStorages/yyh.CLI-Pulse",
     "~/Library/HTTPStorages/yyh.CLI-Pulse.binarycookies",
